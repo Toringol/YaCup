@@ -9,7 +9,20 @@ func main() {
 
 	cards := setCards(cardsNumber)
 
-	var winner string
+	fmt.Println(whoIsWinner(cards, pointsToWin))
+}
+
+func setCards(n int) []int {
+	a := make([]int, n)
+
+	for i := 0; i < n; i++ {
+		fmt.Scan(&a[i])
+	}
+
+	return a
+}
+
+func whoIsWinner(cards []int, pointsToWin int) string {
 	petyaPoints, vasyaPoints := 0, 0
 
 	for _, card := range cards {
@@ -22,27 +35,19 @@ func main() {
 		}
 
 		if vasyaPoints == petyaPoints && vasyaPoints == pointsToWin {
-			winner = "Draw"
+			return "Draw"
 		} else if vasyaPoints == pointsToWin {
-			winner = "Vasya"
+			return "Vasya"
 		} else if petyaPoints == pointsToWin {
-			winner = "Petya"
-		}
-
-		if winner != "" {
-			break
+			return "Petya"
 		}
 	}
 
-	fmt.Println(winner)
-}
-
-func setCards(n int) []int {
-	a := make([]int, n)
-
-	for i := 0; i < n; i++ {
-		fmt.Scan(&a[i])
+	if vasyaPoints > petyaPoints {
+		return "Vasya"
+	} else if petyaPoints > vasyaPoints {
+		return "Petya"
+	} else {
+		return "Draw"
 	}
-
-	return a
 }
